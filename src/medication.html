@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Tracker</title>
+    <link rel="stylesheet" href="./output.css">
+    
+</head>
+<body>
+
+<div class="max-w-md mx-auto bg-white p-5 rounded mt-10">
+    <h2 class="text-center text-2xl text-blue-500 mb-6">Medicine Tracker</h2>
+    <form id="medicine-form">
+        <div id="medicines-container">
+            <div class="medicine-item mb-4">
+                <input type="text" placeholder="Medicine Name" class="border rounded w-full p-2 mb-2" required>
+                <input type="time" class="border rounded w-full p-2" required>
+                <button type="button" class="delete-medicine mt-2 bg-red-500 text-white rounded p-2 ">
+                    delete
+                </button>
+            </div>
+        </div>
+        <button type="button" id="add-medicine" class="bg-green-500 text-white rounded p-2 mb-4">
+            Add Medicine
+        </button>
+        <button type="submit" class="bg-blue-500 text-white rounded p-2 w-full">
+            Submit
+        </button>
+    </form>
+</div>
+<footer class="fixed bottom-0 left-0 right-0 bg-white border-t mt-6 flex justify-around pt-4 z-50">
+    <a href="./home.html" class="text-blue-600 text-2xl lg:text-3xl">🏠</a>
+    <a href="./contact.html" class="text-gray-600 text-2xl lg:text-3xl">🩺</a>
+    <a href="./reminder.html" class="text-gray-600 text-2xl lg:text-3xl">💊</a>
+    <a href="./articles.html" class="text-gray-600 text-2xl lg:text-3xl">📰</a>
+  </footer>
+
+<script>
+    document.getElementById('add-medicine').addEventListener('click', function() {
+        const container = document.getElementById('medicines-container');
+        const newMedicineItem = document.createElement('div');
+        newMedicineItem.className = 'medicine-item mb-4';
+        newMedicineItem.innerHTML = `
+            <input type="text" placeholder="Medicine Name" class="border rounded w-full p-2 mb-2" required>
+            <input type="time" class="border rounded w-full p-2" required>
+            <button type="button" class="delete-medicine mt-2 bg-red-500 text-white rounded p-2 ">
+                    delete
+                </button>
+        `;
+        container.appendChild(newMedicineItem);
+        
+        // Add delete functionality to the new button
+        newMedicineItem.querySelector('.delete-medicine').addEventListener('click', function() {
+            container.removeChild(newMedicineItem);
+        });
+    });
+
+    document.getElementById('medicine-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const medicineItems = document.querySelectorAll('.medicine-item');
+        const medicines = [];
+        
+        medicineItems.forEach(item => {
+            const name = item.querySelector('input[type="text"]').value;
+            const time = item.querySelector('input[type="time"]').value;
+            medicines.push({ name, time });
+        });
+
+        console.log(medicines);
+        // You can process the medicines array here (e.g., send to server)
+    });
+
+    // Add event listener to the delete buttons of existing items
+    document.querySelectorAll('.delete-medicine').forEach(button => {
+        button.addEventListener('click', function() {
+            const medicineItem = button.parentElement;
+            const container = document.getElementById('medicines-container');
+            container.removeChild(medicineItem);
+        });
+    });
+</script>
+
+</body>
+</html>

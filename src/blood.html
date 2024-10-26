@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart-Related Test Report Form</title>
+    <link rel="stylesheet" href="./output.css">
+</head>
+<body class="bg-white font-sans p-5 mb-4">
+
+<div class="max-w-md mx-auto bg-white p-6">
+    <h2 class="text-center text-2xl text-blue-500 mb-6">Heart-Related Test Report</h2>
+    <form>
+        <!-- Date of Test -->
+        <div class="mb-4">
+            <label for="test-date" class="block text-gray-700 mb-2">Date of Test</label>
+            <input type="date" id="test-date" name="test-date" required class="w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        
+        <!-- Blood Pressure -->
+        <div class="mb-4">
+            <label for="systolic" class="block text-gray-700 mb-2">Systolic Blood Pressure (mm Hg)</label>
+            <input type="number" id="systolic" name="systolic" required class="w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+            <label for="diastolic" class="block text-gray-700 mb-2">Diastolic Blood Pressure (mm Hg)</label>
+            <input type="number" id="diastolic" name="diastolic" required class="w-full p-2 border border-gray-300 rounded-md">
+        </div>
+
+        <!-- Heart Rate -->
+        <div class="mb-4">
+            <label for="heart-rate" class="block text-gray-700 mb-2">Heart Rate (BPM)</label>
+            <input type="number" id="heart-rate" name="heart-rate" required class="w-full p-2 border border-gray-300 rounded-md">
+        </div>
+
+        <!-- Cholesterol Levels -->
+        <div class="mb-4">
+            <label for="ldl" class="block text-gray-700 mb-2">LDL Cholesterol (mg/dL)</label>
+            <input type="number" id="ldl" name="ldl" required class="w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+            <label for="hdl" class="block text-gray-700 mb-2">HDL Cholesterol (mg/dL)</label>
+            <input type="number" id="hdl" name="hdl" required class="w-full p-2 border border-gray-300 rounded-md">
+        </div>
+        <div class="mb-4">
+            <label for="triglycerides" class="block text-gray-700 mb-2">Triglycerides (mg/dL)</label>
+            <input type="number" id="triglycerides" name="triglycerides" required class="w-full p-2 border border-gray-300 rounded-md">
+        </div>
+
+        <!-- Glucose Levels -->
+        <div class="mb-4">
+            <label for="glucose" class="block text-gray-700 mb-2">Glucose Levels (mg/dL)</label>
+            <input type="number" id="glucose" name="glucose" required class="w-full p-2 border border-gray-300 rounded-md">
+        </div>
+
+        <!-- C-Reactive Protein (optional marker for inflammation) -->
+        <div class="mb-4">
+            <label for="crp" class="block text-gray-700 mb-2">C-Reactive Protein (mg/L)</label>
+            <input type="number" id="crp" name="crp" class="w-full p-2 border border-gray-300 rounded-md">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded-md">Submit Report</button>
+    </form>
+</div>
+
+<footer class="fixed bottom-0 left-0 right-0 bg-white border-t mt-6 flex justify-around pt-4 z-50">
+    <a href="./home.html" class="text-blue-600 text-2xl lg:text-3xl">🏠</a>
+    <a href="./contact.html" class="text-gray-600 text-2xl lg:text-3xl">🩺</a>
+    <a href="./reminder.html" class="text-gray-600 text-2xl lg:text-3xl">💊</a>
+    <a href="./articles.html" class="text-gray-600 text-2xl lg:text-3xl">📰</a>
+</footer>
+
+</body>
+</html>
