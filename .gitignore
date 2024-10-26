@@ -1,0 +1,21 @@
+# Node modules
+node_modules/
+
+# Tailwind CSS build files
+*.css
+*.css.map
+tailwind.config.js
+postcss.config.js
+
+# Ignore .env files
+.env
+.env.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
