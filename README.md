@@ -14,7 +14,7 @@ All these features are presented in a clean UI and an intuitive UX designed to p
 
 ---
 
-## My JSON Server Project
+**JSON Server**
 
 This project sets up a mock JSON server to simulate API endpoints for testing and development purposes.
 
