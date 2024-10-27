@@ -28,6 +28,7 @@ This project sets up a mock JSON server to simulate API endpoints for testing an
    ```bash
    git clone https://github.com/AnirudhRakonda/Elixir.git
    cd Elixir
+   cd src
 2. **Install dependencies:**
    ```bash
    npm install
