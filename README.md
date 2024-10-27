@@ -12,5 +12,9 @@ This project sets up a mock JSON server to simulate API endpoints for testing an
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/AnirudhRakonda/Elixir.git
+2. **Install dependencies: **
+   ```bash
+   npm install
+   npx json-server --watch db.json --port 8000
+
