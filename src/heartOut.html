@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blood Reports Comparison Chart</title>
+  <link rel="stylesheet" href="./output.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-white p-5 mb-4">
+  <h2 class="text-2xl text-center text-blue-500 mb-6">Blood Reports Comparison</h2>
+  
+  <canvas id="hemoglobinChart" class="max-w-md mx-auto mt-6" height="400"></canvas>
+  <canvas id="glucoseChart" class="max-w-md mx-auto mt-6" height="400"></canvas>
+
+  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t mt-6 flex justify-around pt-4 z-50">
+    <a href="./home.html" class="text-blue-600 text-2xl lg:text-3xl">🏠</a>
+    <a href="./contact.html" class="text-gray-600 text-2xl lg:text-3xl">🩺</a>
+    <a href="./reminder.html" class="text-gray-600 text-2xl lg:text-3xl">📊</a>
+    <a href="./articles.html" class="text-gray-600 text-2xl lg:text-3xl">📰</a>
+  </footer>
+
+  <script>
+    async function fetchBloodData() {
+      try {
+        const response = await fetch("http://localhost:8000/bloodReports");
+        if (!response.ok) {
+          throw new Error("Failed to fetch blood data");
+        }
+        return await response.json();
+      } catch (error) {
+        console.error("Error:", error);
+        return [];
+      }
+    }
+
+    function createHemoglobinChart(originalValues, fetchedValues) {
+      const ctx = document.getElementById('hemoglobinChart').getContext('2d');
+      
+      const labels = originalValues.map(report => report.date);
+      const originalHemoglobinData = originalValues.map(report => report.hemoglobin || 0);
+      const fetchedHemoglobinData = fetchedValues.map(report => report.hemoglobin || 0);
+      
+      const hemoglobinChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Original Hemoglobin (g/dL)',
+              data: originalHemoglobinData,
+              backgroundColor: 'rgba(75, 192, 192, 0.5)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1,
+            },
+            {
+              label: 'Fetched Hemoglobin (g/dL)',
+              data: fetchedHemoglobinData,
+              backgroundColor: 'rgba(75, 192, 192, 0.8)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              beginAtZero: true,
+              stacked: false,
+              title: {
+                display: true,
+                text: 'Measurement'
+              }
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Date'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function createGlucoseChart(originalValues, fetchedValues) {
+      const ctx = document.getElementById('glucoseChart').getContext('2d');
+
+      const labels = originalValues.map(report => report.date);
+      const originalGlucoseData = originalValues.map(report => report.glucose || 0);
+      const fetchedGlucoseData = fetchedValues.map(report => report.glucose || 0);
+      
+      const glucoseChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Original Glucose (mg/dL)',
+              data: originalGlucoseData,
+              backgroundColor: 'rgba(255, 99, 132, 0.5)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1,
+            },
+            {
+              label: 'Fetched Glucose (mg/dL)',
+              data: fetchedGlucoseData,
+              backgroundColor: 'rgba(255, 99, 132, 0.8)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: {
+              beginAtZero: true,
+              stacked: false,
+              title: {
+                display: true,
+                text: 'Measurement'
+              }
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Date'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    async function loadData() {
+      const originalValues = await fetchBloodData(); // Fetch original values
+      const fetchedValues = await fetchBloodData(); // Fetch fetched values
+
+      createHemoglobinChart(originalValues, fetchedValues);
+      createGlucoseChart(originalValues, fetchedValues);
+    }
+
+    // Fetch and display data on page load
+    window.onload = loadData;
+  </script>
+</body>
+</html>

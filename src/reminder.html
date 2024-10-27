@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Health Tracker</title>
+    <link rel="stylesheet" href="./output.css">
 </head>
-<body>
-    
+<body class="h-screen flex items-center justify-center">
+
+<div class="max-w-md w-full space-y-6 flex flex-col items-center">
+    <!-- Heart-Related Card -->
+    <a href="./heartOut.html" class="block bg-blue-100 p-6 rounded-lg shadow-md w-[80%] hover:bg-blue-200 transition duration-200 ease-in-out">
+        <h2 class="text-xl font-bold text-blue-600">Heart Related Output</h2>
+        <p class="text-gray-700 mt-2">Check detailed metrics and insights related to heart health.</p>
+    </a>
+
+    <!-- Blood-Related Card -->
+    <a href="./bloodOut.html" class="block bg-red-100 p-6 rounded-lg shadow-md w-[80%] hover:bg-red-200 transition duration-200 ease-in-out">
+        <h2 class="text-xl font-bold text-red-600">Blood Related Output</h2>
+        <p class="text-gray-700 mt-2">Access blood test reports and other blood-related information.</p>
+    </a>
+
+    <!-- Medication Tracker Card -->
+    <a href="./medicineOut.html" class="block bg-green-100 p-6 rounded-lg shadow-md w-[80%] hover:bg-green-200 transition duration-200 ease-in-out">
+        <h2 class="text-xl font-bold text-green-600">Medication Tracker</h2>
+        <p class="text-gray-700 mt-2">Track your daily medication schedule and doses.</p>
+    </a>
+</div>
+<footer class="fixed bottom-0 left-0 right-0 bg-white border-t mt-6 flex justify-around pt-4 z-50">
+    <a href="./home.html" class="text-blue-600 text-2xl lg:text-3xl">🏠</a>
+    <a href="./contact.html" class="text-gray-600 text-2xl lg:text-3xl">🩺</a>
+    <a href="./reminder.html" class="text-gray-600 text-2xl lg:text-3xl">📊</a>
+    <a href="./articles.html" class="text-gray-600 text-2xl lg:text-3xl">📰</a>
+  </footer>
 </body>
 </html>
