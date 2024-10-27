@@ -3,11 +3,11 @@
 Healthcare- Anytime, Anywhere.
 Elixir is an app that’s designed to provide accessible healthcare to rural citizens, we offer multiple health related facilities all at one place.
 Some of our key features include:
-Test report integration
-Graphical presentation of results
-Medication Monitoring
-Telemedicine Support
-Health Goals Tracking
+1)Test report integration
+2)Graphical presentation of results
+3)Medication Monitoring
+4)Telemedicine Support
+5)Health Goals Tracking
 Health Education (articles and tips)
 All these features are presented in a clean UI and an intuitive UX designed to provide maximum impact with minimum effort.
 
