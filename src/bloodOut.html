@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blood-Related Test Reports</title>
+  <link rel="stylesheet" href="./output.css">
+</head>
+<body class="bg-white p-5 mb-4">
+  <h2 class="text-2xl text-center text-red-500 mb-6">Blood-Related Test Reports</h2>
+  
+  <div id="reportContainer" class="max-w-md mx-auto bg-white p-6">
+    <!-- Data will be inserted here -->
+  </div>
+  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t mt-6 flex justify-around pt-4 z-50">
+    <a href="./home.html" class="text-blue-600 text-2xl lg:text-3xl">🏠</a>
+    <a href="./contact.html" class="text-gray-600 text-2xl lg:text-3xl">🩺</a>
+    <a href="./reminder.html" class="text-gray-600 text-2xl lg:text-3xl">📊</a>
+    <a href="./articles.html" class="text-gray-600 text-2xl lg:text-3xl">📰</a>
+  </footer>
+
+  <script>
+    // Function to fetch data
+    async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:8000/bloodReports");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const data = await response.json();
+        
+        // Filter only blood-related reports
+        const bloodRelatedReports = data.filter(report => report.hasOwnProperty("glucose") || report.hasOwnProperty("crp") || report.hasOwnProperty("ldl") || report.hasOwnProperty("hdl") || report.hasOwnProperty("triglycerides"));
+
+        displayData(bloodRelatedReports);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    // Function to display data in <p> tags
+    function displayData(reports) {
+      const reportContainer = document.getElementById("reportContainer");
+      reportContainer.innerHTML = ""; // Clear previous data
+
+      reports.forEach((report, index) => {
+        const reportDiv = document.createElement("div");
+        reportDiv.classList.add("border", "p-4", "mb-4", "rounded-md", "bg-gray-100");
+
+        reportDiv.innerHTML = `
+          <p><strong>Report #${index + 1}</strong></p>
+          <p>Date: ${report.date}</p>
+          <p>Glucose: ${report.glucose ? report.glucose + " mg/dL" : "N/A"}</p>
+          <p>CRP: ${report.crp ? report.crp + " mg/L" : "N/A"}</p>
+          <p>LDL: ${report.ldl ? report.ldl + " mg/dL" : "N/A"}</p>
+          <p>HDL: ${report.hdl ? report.hdl + " mg/dL" : "N/A"}</p>
+          <p>Triglycerides: ${report.triglycerides ? report.triglycerides + " mg/dL" : "N/A"}</p>
+        `;
+
+        reportContainer.appendChild(reportDiv);
+      });
+    }
+
+    // Fetch and display data on page load
+    window.onload = fetchData;
+  </script>
+</body>
+</html>

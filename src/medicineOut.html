@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart-Related Test Reports with Charts</title>
+  <link rel="stylesheet" href="./output.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-white p-5 mb-4">
+  <h2 class="text-2xl text-center text-blue-500 mb-6">Heart-Related Test Reports</h2>
+  
+  <div id="reportContainer" class="max-w-md mx-auto bg-white p-6">
+    <!-- Data will be inserted here -->
+  </div>
+
+  <!-- Glucose Chart: Red Bar on Top -->
+  <canvas id="glucoseChart" class="mt-6"></canvas>
+
+  <!-- Other Values Chart: Below Glucose Chart -->
+  <canvas id="otherChart" class="mt-6"></canvas>
+
+  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t mt-6 flex justify-around pt-4 z-50">
+    <a href="./home.html" class="text-blue-600 text-2xl lg:text-3xl">🏠</a>
+    <a href="./contact.html" class="text-gray-600 text-2xl lg:text-3xl">🩺</a>
+    <a href="./reminder.html" class="text-gray-600 text-2xl lg:text-3xl">📊</a>
+    <a href="./articles.html" class="text-gray-600 text-2xl lg:text-3xl">📰</a>
+  </footer>
+
+  <script>
+    // Function to fetch data
+    async function fetchData() {
+      try {
+        const response = await fetch("http://localhost:8000/heartReports");
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+
+        const data = await response.json();
+        
+        // Filter heart-related reports
+        const heartRelatedReports = data.filter(report => report.hasOwnProperty("systolic") && report.hasOwnProperty("diastolic") && report.hasOwnProperty("heartRate"));
+
+        displayData(heartRelatedReports);
+        createGlucoseChart(heartRelatedReports);
+        createOtherChart(heartRelatedReports); // Add this line
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    // Function to display data in <p> tags
+    function displayData(reports) {
+      const reportContainer = document.getElementById("reportContainer");
+      reportContainer.innerHTML = ""; // Clear previous data
+
+      reports.forEach((report, index) => {
+        const reportDiv = document.createElement("div");
+        reportDiv.classList.add("border", "p-4", "mb-4", "rounded-md", "bg-gray-100");
+
+        reportDiv.innerHTML = `
+          <p><strong>Report #${index + 1}</strong></p>
+          <p>Date: ${report.date}</p>
+          <p>Systolic: ${report.systolic} mm Hg</p>
+          <p>Diastolic: ${report.diastolic} mm Hg</p>
+          <p>Heart Rate: ${report.heartRate} BPM</p>
+          <p>LDL: ${report.ldl} mg/dL</p>
+          <p>HDL: ${report.hdl} mg/dL</p>
+          <p>Triglycerides: ${report.triglycerides} mg/dL</p>
+        `;
+
+        reportContainer.appendChild(reportDiv);
+      });
+    }
+
+    // Create Glucose Level Chart
+    function createGlucoseChart(reports) {
+      const ctx = document.getElementById('glucoseChart').getContext('2d');
+      const glucoseValues = reports.map(report => report.glucose);
+      const originalGlucoseValue = 96; // Set original glucose level
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: reports.map(report => report.date), // Dates as labels
+          datasets: [{
+            label: 'Original Glucose Level',
+            data: Array(glucoseValues.length).fill(originalGlucoseValue), // Array filled with original value
+            backgroundColor: 'rgba(255, 99, 132, 1)', // Red color for original glucose level
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1,
+          }, {
+            label: 'Reported Glucose Level',
+            data: glucoseValues,
+            backgroundColor: 'rgba(54, 162, 235, 1)', // Blue color for reported glucose level
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1,
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    // Create Another Bar Chart for Different Values
+    function createOtherChart(reports) {
+      const ctx = document.getElementById('otherChart').getContext('2d');
+      const otherValues = reports.map(report => report.otherValue); // Replace 'otherValue' with your actual field
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: reports.map(report => report.date), // Dates as labels
+          datasets: [{
+            label: 'Other Reported Value',
+            data: otherValues,
+            backgroundColor: 'rgba(75, 192, 192, 1)', // Change to your desired color
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    // Fetch and display data on page load
+    window.onload = fetchData;
+  </script>
+</body>
+</html>
